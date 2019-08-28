@@ -1,37 +1,49 @@
-/*
-  Blink
+// Basic Bluetooth sketch HC-06_01
+// Connect the Hc-06 module and communicate using the serial monitor
+//
+// The HC-06 defaults to AT mode when first powered on.
+// The default baud rate is 9600
+// The Hc-06 requires all AT commands to be in uppercase. NL+CR should not be added to the command string
+//
 
-  Turns an LED on for one second, then off for one second, repeatedly.
 
-  Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO
-  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to
-  the correct LED pin independent of which board is used.
-  If you want to know what pin the on-board LED is connected to on your Arduino
-  model, check the Technical Specs of your board at:
-  https://www.arduino.cc/en/Main/Products
+#include <SoftwareSerial.h>
+#include "BluetoothManager.h"
+#include "SerialManager.h"
+#include "CommandListener.h"
+#include "CommandAbstract.h"
+#include "ActionManager.h"
 
-  modified 8 May 2014
-  by Scott Fitzgerald
-  modified 2 Sep 2016
-  by Arturo Guadalupi
-  modified 8 Sep 2016
-  by Colby Newman
+CommandListener commandListener;
+ActionManager* actionManager = new ActionManager();
 
-  This example code is in the public domain.
-
-  http://www.arduino.cc/en/Tutorial/Blink
-*/
-
-// the setup function runs once when you press reset or power the board
-void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+void setup()
+{
 }
 
-// the loop function runs over and over again forever
-void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(500);                       // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  delay(500);                       // wait for a second
+void loop()
+{
+  SerialManager& serialManager = SerialManager::GetInstance();
+  BluetoothManager& bluetoothManager = BluetoothManager::GetInstance();
+
+  //relayManager.SetOneOff();
+
+//  char output = serialManager.Read();
+//  if (output != (char) 0) {
+//    //serialManager.Write(output);
+//    bluetoothManager.Write(output);
+//  }
+
+//  char input = bluetoothManager.Read();
+//  if (input != (char) 0) {
+//    serialManager.Write(input);
+//  }
+
+  CommandAbstract * command = commandListener.GetCommand();
+  if (command != NULL)
+  {
+    command->UpdateSettings();
+  }
+  actionManager->PerformActions();
+  delete command;
 }
