@@ -43,7 +43,7 @@ void PingAction::Blink()
   }
 
   this->ledOn = !this->ledOn;
-  if(this->pingCount >= 10) {
+  if(this->pingCount >= 20) {
     this->Reset();
     //ledManager.SetPinLow();
   }

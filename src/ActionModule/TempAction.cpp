@@ -42,8 +42,8 @@ void TempAction::RegulateTemp(float currentTemp)
 
   // If the temp is warmer than the desired temp
   if(currentTemp > (settings.TargetTemp + tempBuffer)) {
-    state.PumpOn = true;
+    state.PumpOn = !settings.Heating;
   } else if(currentTemp < (settings.TargetTemp - tempBuffer)) {
-    state.PumpOn = false;
+    state.PumpOn = settings.Heating;
   }
 }

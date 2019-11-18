@@ -16,7 +16,9 @@ void GetSettingsCommand::UpdateSettings()
   Settings& settings = Settings::GetInstance();
 
   bluetoothManager.Write(String("{getsettings:") + String(settings.TargetTemp)
-    + String("|") + String(settings.AutoTempControl) + String("|") + String(settings.ManualPumpOn) + String("}"));
+    + String("|") + String(settings.AutoTempControl) + String("|") + String(settings.ManualPumpOn) 
+    + String("|") + String(settings.Heating) + String("}"));
   serialManager.Debug(String(String("Command: GetSettings - ") + String(settings.TargetTemp)
-    + String("|") + String(settings.AutoTempControl) + String("|") + String(settings.ManualPumpOn) + String("}")));
+    + String("|") + String(settings.AutoTempControl) + String("|") + String(settings.ManualPumpOn) 
+    + String("|") + String(settings.Heating) + String("}")));
 }
