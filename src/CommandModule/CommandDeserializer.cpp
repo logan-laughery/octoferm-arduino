@@ -7,6 +7,7 @@
 #include <string.h>
 #include "PingCommand.h"
 #include "StateCommand.h"
+#include "SetHeaterCommand.h"
 #include "TempStatusCommand.h"
 #include "MemStatusCommand.h"
 #include "PumpStatusCommand.h"
@@ -62,6 +63,10 @@ CommandAbstract * CommandDeserializer::DeserializeCommand(char rawCommand[])
   else if (rawCommandString.startsWith("{temp:"))
   {
     return new SetTempCommand(this->ExtractArgument(rawCommandString));
+  }
+  else if (rawCommandString.startsWith("{h:"))
+  {
+    return new SetHeaterCommand(this->ExtractArgument(rawCommandString));
   }
   return NULL;
 }

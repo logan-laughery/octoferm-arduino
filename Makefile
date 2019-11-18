@@ -17,8 +17,8 @@ USER_LIB_PATH    :=  /home/logan/Arduino/libraries
 ARDUINO_SKETCHBOOK= /home/logan/Arduino
 
 BOARD_TAG         = nano
-# BOARD_SUB         = atmega328old
-BOARD_SUB         = atmega328
+BOARD_SUB         = atmega328old
+#BOARD_SUB         = atmega328
 ARDUINO_PORT      = /dev/ttyUSB*
 # ARDUINO_LIBS      = LiquidCrystal
 
